@@ -20,7 +20,7 @@ int rec(int i, int j) {
     int res;
     const int infinite = 999999;
     if (j <= 0) {
-        // 人数が条件MAN_LIMITを超えたら費用を0に、再起呼び出しはここで終了、折り返して計算。
+        // 人数が条件MAN_NEEDを超えたら費用を0に、再起呼び出しはここで終了、折り返して計算。
         // ここを起点に投入した会社に応じて足し算
         res = 0;
     } else if (i == TOTALNUMBER_COMPANY) {
