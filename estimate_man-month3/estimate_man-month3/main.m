@@ -16,9 +16,9 @@ int i;
 int q[tmpElement_n],r[tmpElement_n];
 
 // 漸化式
-//dp[TOTALNUMBER_COMPANY][j] = 999999 (MAN_NEED>= j > 0)
-//dp[i][j] = 0 (TOTALNUMBER_COMPANY-1 >= i >= 0)(-200 < j <= 0)
-//dp[i][j] = max{dp[i+1][j], dp[i+1][j−w[i]]+v[i]} (TOTALNUMBER_COMPANY-1 >= i >= 0)(MAN_NEED>= j > 0)
+//dp[会社数][j] = 999999 (0 < j <=必要人数)
+//dp[i][j] = 0 (0 <= i <会社数) (-200 < j <= 0)
+//dp[i][j] = max{dp[i+1][j], dp[i+1][j−w[i]]+v[i]} (0 <= i <会社数) (0 < j <=必要人数)
 // メモ化テーブル
 // dp[i][j]はi番目以降の会社から人数の和がj以上となるように選んだときの価値の和の最小値を表す。
 // 人数のオーバー分として200人を想定してjの要素数に上乗せ
@@ -26,9 +26,11 @@ int dp[tmpElement_n + 1][tmpElement_q + 201];
 
 
 void solve_dp2() {
+    // 定数999999の分
     for (int j = 1; j <= MAN_NEED; j++) {
         dp[TOTALNUMBER_COMPANY][j] = 999999;
     }
+    // 定数0の分
     for (int i = TOTALNUMBER_COMPANY - 1; i >= 0; i--) {
         dp[i][0] = 0;
         // jがマイナスになる分として、要素数の上から200を使用
@@ -36,6 +38,7 @@ void solve_dp2() {
             dp[i][j] = 0;
         }
     }
+    // 再帰呼び出しの分
     for (int i = TOTALNUMBER_COMPANY - 1; i >= 0; i--) {
         for (int j = 1; j <= MAN_NEED; j++) {
                 if (dp[i+1][j]<dp[i + 1][j - q[i]] + r[i]){
